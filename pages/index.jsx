@@ -2,6 +2,8 @@ import { Navbar } from "../components/navbar";
 import { Alert, Slider, NumberInput } from "@heroui/react";
 import { useEffect, useState } from "react";
 import { jStat } from "jstat";
+import { Heatmap } from "../components/heatmap";
+import dynamic from "next/dynamic";
 
 function cumulativeDistribution(x) {
   return jStat.normal.cdf(x, 0, 1);
@@ -45,6 +47,11 @@ export default function Index() {
   const [timeToExpiration, setTimeToExpiration] = useState(1);
   const [interestRate, setInterestRate] = useState(0.05);
   const [volatility, setVolatility] = useState(0.2);
+
+  const Heatmap = dynamic(() => import("../components/heatmap"), {
+    ssr: false,
+  });
+
 
   useEffect(
     () => {
@@ -120,7 +127,7 @@ export default function Index() {
           step={0.01}
         />
 
-        <p className="mt-8">Work in progress</p>
+        <Heatmap />
       </div>
     </>
   );
