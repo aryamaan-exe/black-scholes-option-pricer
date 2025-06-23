@@ -61,16 +61,18 @@ export default function Index() {
         <Alert color="primary" className="my-8 w-fit">Coming from Hack Club? Check out the tutorial section from the navbar above to learn more about this project.</Alert>
         <h1>Input Variables</h1>
         <div className="flex *:p-4">
-          <NumberInput label="Stock Price" defaultValue={100} formatOptions={{
-            style: "currency",
-            currency: "USD"
-          }} onChange={(value) => {
+          <NumberInput label="Stock Price" defaultValue={100} startContent={
+            <div className="pointer-events-none flex items-center">
+              <span className="text-default-400 text-small">$</span>
+            </div>
+          } onChange={(value) => {
             setStockPrice(value);
           }}></NumberInput>
-          <NumberInput label="Strike Price" defaultValue={100} formatOptions={{
-            style: "currency",
-            currency: "USD"
-          }} onChange={(value) => {
+          <NumberInput label="Strike Price" defaultValue={100} startContent={
+            <div className="pointer-events-none flex items-center">
+              <span className="text-default-400 text-small">$</span>
+            </div>
+          } onChange={(value) => {
             setStrikePrice(value);
           }}></NumberInput>
           <NumberInput label="Time to Expiration" defaultValue={1} onChange={(value) => {
@@ -97,6 +99,7 @@ export default function Index() {
             </Alert>
           </div>
         </div>
+        {isNaN(callValue) ? <Alert color="danger" className="my-8 w-fit">Getting NaN? Click away from the input box.</Alert> : ""}
         <h1 className="my-8">Heatmap</h1>
         <Slider
           className="max-w-md"
@@ -116,6 +119,8 @@ export default function Index() {
           maxValue={1.00}
           step={0.01}
         />
+
+        <p className="mt-8">Work in progress</p>
       </div>
     </>
   );
