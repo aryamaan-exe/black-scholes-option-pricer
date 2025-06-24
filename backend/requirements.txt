@@ -1,0 +1,10 @@
+fastapi
+pydantic
+numpy
+matplotlib
+seaborn
+scipy
+python-dotenv
+imagekitio
+uvicorn
+python-multipart
