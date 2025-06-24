@@ -69,6 +69,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
 @app.post("/heatmap")
 async def heatmap(params: Request):
     plt.clf()
