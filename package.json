@@ -25,6 +25,7 @@
     "clsx": "2.1.1",
     "cumulative-distribution-function": "^2.1.1",
     "framer-motion": "11.13.1",
+    "install": "^0.13.0",
     "intl-messageformat": "10.7.16",
     "jstat": "^1.9.6",
     "next": "15.3.1",

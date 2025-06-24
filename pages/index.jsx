@@ -1,15 +1,29 @@
 import { Navbar } from "../components/navbar";
-import { Alert, Slider, NumberInput } from "@heroui/react";
+import { Button, Image, Alert, Slider, NumberInput, Skeleton } from "@heroui/react";
 import { useEffect, useState } from "react";
 import { jStat } from "jstat";
-import { Heatmap } from "../components/heatmap";
-import dynamic from "next/dynamic";
 
 function cumulativeDistribution(x) {
   return jStat.normal.cdf(x, 0, 1);
 }
 
-function blackScholes(stockPrice, strikePrice, timeToExpiration, interestRate, volatility) {
+async function generateHeatmap(minStockPrice, maxStockPrice, minVolatility, maxVolatility, strikePrice, timeToExpiration, interestRate) {
+  const apiURL = process.env.NEXT_PUBLIC_API;
+  const response = await fetch(`${apiURL}/heatmap`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ minStockPrice, maxStockPrice, minVolatility, maxVolatility, strikePrice, interestRate, timeToExpiration})
+  });
+
+  const json = await response.json()
+  console.log(json.url);
+  
+  return json.url;
+}
+
+export function blackScholes(stockPrice, strikePrice, timeToExpiration, interestRate, volatility) {
   function calculateBSTerm(d1, d2, call=1) {
     let x = (stockPrice * cumulativeDistribution(call * d1));
     x -= (strikePrice * (Math.pow(Math.E, -interestRate * timeToExpiration)) * cumulativeDistribution(call * d2));
@@ -47,11 +61,19 @@ export default function Index() {
   const [timeToExpiration, setTimeToExpiration] = useState(1);
   const [interestRate, setInterestRate] = useState(0.05);
   const [volatility, setVolatility] = useState(0.2);
+  const [minStockPrice, setMinStockPrice] = useState(80);
+  const [maxStockPrice, setMaxStockPrice] = useState(120);
+  const [minVolatility, setMinVolatility] = useState(0.1);
+  const [maxVolatility, setMaxVolatility] = useState(0.4);
+  const [heatmapSource, setHeatmapSource] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const Heatmap = dynamic(() => import("../components/heatmap"), {
-    ssr: false,
-  });
-
+  const heatmapClicked = async () => {
+    setLoading(true);
+    const url = await generateHeatmap(minStockPrice, maxStockPrice, minVolatility, maxVolatility, strikePrice, timeToExpiration, interestRate);
+    setHeatmapSource(url);
+    setLoading(false);
+  };
 
   useEffect(
     () => {
@@ -67,8 +89,8 @@ export default function Index() {
       <div className="flex justify-center flex-col items-center ml-32">
         <Alert color="primary" className="my-8 w-fit">Coming from Hack Club? Check out the tutorial section from the navbar above to learn more about this project.</Alert>
         <h1>Input Variables</h1>
-        <div className="flex *:p-4">
-          <NumberInput label="Stock Price" defaultValue={100} startContent={
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <NumberInput className="" label="Stock Price" defaultValue={100} startContent={
             <div className="pointer-events-none flex items-center">
               <span className="text-default-400 text-small">$</span>
             </div>
@@ -92,7 +114,7 @@ export default function Index() {
             setVolatility(value);
           }}></NumberInput>
         </div>
-        <div className="flex *:p-2">
+        <div className="mt-2 flex *:p-2">
           <div>
             <Alert hideIcon variant="faded" color="success">
               <p>Call Value</p>
@@ -110,24 +132,40 @@ export default function Index() {
         <h1 className="my-8">Heatmap</h1>
         <Slider
           className="max-w-md"
-          defaultValue={[stockPrice - 100 ? stockPrice > 100 : 0, stockPrice + 100]}
+          defaultValue={[stockPrice > 20 ? stockPrice - 20 : 10, stockPrice + 20]}
           formatOptions={{style: "currency", currency: "USD"}}
           label="Stock Price"
-          minValue={stockPrice - 500 ? stockPrice > 500 : 0}
+          minValue={stockPrice > 500 ? stockPrice - 500 : 10}
           maxValue={stockPrice + 500}
           step={10}
+          onChange={([min, max]) => {
+            setMinStockPrice(min);
+            setMaxStockPrice(max);
+          }}
         />
 
         <Slider
           className="max-w-md"
-          defaultValue={[0.01, 0.1]}
+          defaultValue={[0.1, 0.4]}
           label="Volatility"
           minValue={0.01}
           maxValue={1.00}
           step={0.01}
+          onChange={([min, max]) => {
+            setMinVolatility(min);
+            setMaxVolatility(max);
+          }}
         />
 
-        <Heatmap />
+        <Skeleton isLoaded={!loading} className="rounded-lg my-4">
+          <div className="flex flex-col justify-center items-center">   
+            { heatmapSource &&
+              (<Image src={heatmapSource} width={500} height={500}></Image>)
+            }
+          </div>
+        </Skeleton>
+
+        <Button isLoading={loading} color="primary" onPress={heatmapClicked}>Generate Heatmap</Button>
       </div>
     </>
   );

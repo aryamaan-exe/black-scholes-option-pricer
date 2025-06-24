@@ -22,7 +22,7 @@ export default function Tutorial() {
                     <p>Last thing before we move on to the model itself. Imagine you're an apple seller yourself, and John wants to buy some of your apples (he knows they taste better). So, you give HIM a deal now. "Here's $1. A year from now, I want the option to sell you an apple for $5, even if they're only worth $2 then." This is known as a put option. Short quiz: What is the $1 in this case?</p>
                 </div>
                 <h1 className="my-4">What is the Black-Scholes Model?</h1>
-                <p>Work in progress - for now imagine a function that takes 5 inputs and gives 2 outputs.</p>
+                <p>What if you could mathematically determine the best call/put price for your options? The Black-Scholes model does exactly that. It takes in five variables (stock price, strike price, risk-free interest rate, time to expiration, volatility) and returns the call price. The solution to this partial differential equation for V is the call price.</p>
             </div>
         </>
     );
