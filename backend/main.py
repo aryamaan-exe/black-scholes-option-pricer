@@ -81,7 +81,13 @@ async def heatmap(params: Request):
     fig.tight_layout()
     x_labels = np.round(np.linspace(params.minStockPrice, params.maxStockPrice, 10), 2)
     y_labels = np.round(np.linspace(params.minVolatility, params.maxVolatility, 10), 2)
-    plot = sns.heatmap(black_scholes_map(params.minStockPrice, params.maxStockPrice, params.minVolatility, params.maxVolatility, params.strikePrice, params.interestRate, params.timeToExpiration), cmap=sns.color_palette("Spectral", as_cmap=True), xticklabels=x_labels, yticklabels=y_labels, ax=ax, annot=True)
+    plot = sns.heatmap(black_scholes_map(params.minStockPrice, params.maxStockPrice,
+                                         params.minVolatility, params.maxVolatility,
+                                         params.strikePrice, params.interestRate,
+                                         params.timeToExpiration),
+                                         cmap=sns.color_palette("Spectral", as_cmap=True),
+                                         xticklabels=x_labels, yticklabels=y_labels, ax=ax,
+                                         annot=True, fmt=".2f")
     ax.set_xlabel("Stock Price")
     ax.set_ylabel("Volatility")
     buffer = io.BytesIO()
@@ -99,5 +105,7 @@ async def heatmap(params: Request):
         file=f"data:image/png;base64,{image}",
         file_name=f"{secrets.token_hex(16)}.png",
     ).url
+
+    plt.close('all') # for some reason it was opening the plot?
 
     return {"url": url}
