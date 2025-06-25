@@ -48,8 +48,8 @@ def black_scholes_map(min_stock_price, max_stock_price, min_volatility, max_vola
     x_values = np.round(np.linspace(min_stock_price, max_stock_price, 10), 2)
     y_values = np.round(np.linspace(min_volatility, max_volatility, 10), 2)
 
-    for i in range(len(x_values)):
-        for j in range(len(y_values)):
+    for j in range(len(x_values)):
+        for i in range(len(y_values)):
             current_z.append(black_scholes(x_values[i], strike_price, interest_rate, time_to_expiration, y_values[j]))
 
         z_values.append(current_z)
