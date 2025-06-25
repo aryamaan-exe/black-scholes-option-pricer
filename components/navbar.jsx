@@ -24,7 +24,8 @@ import {
 
 export const Navbar = () => {
   return (
-    <HeroUINavbar maxWidth="xl" position="sticky" className="bg-slate-900">
+    
+    <HeroUINavbar maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
@@ -65,11 +66,13 @@ export const Navbar = () => {
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
+        <Link isExternal href={siteConfig.links.discord} title="Discord">
+            <DiscordIcon className="text-default-500" />
+          </Link>
         <Link isExternal href={siteConfig.links.github}>
           <GithubIcon className="text-default-500" />
         </Link>
         <ThemeSwitch />
-        <NavbarMenuToggle />
       </NavbarContent>
     </HeroUINavbar>
   );

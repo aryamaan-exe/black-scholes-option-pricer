@@ -83,7 +83,7 @@ export default function Index() {
   return (
     <>
       <Navbar />
-      <div className="flex justify-center flex-col items-center ml-32">
+      <div className="flex justify-center flex-col items-center lg:ml-32">
         <Alert color="primary" className="my-8 w-fit">Coming from Hack Club? Check out the tutorial section from the navbar above to learn more about this project.</Alert>
         <h1>Input Variables</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -127,7 +127,9 @@ export default function Index() {
         </div>
         {isNaN(callValue) ? <Alert color="danger" className="my-8 w-fit">Getting NaN? Click away from the input box.</Alert> : ""}
         <h1 className="my-8">Heatmap</h1>
-        <Slider
+
+        {!isNaN(stockPrice) && (<Slider
+          key={stockPrice}
           className="max-w-md"
           defaultValue={[stockPrice > 20 ? stockPrice - 20 : 10, stockPrice + 20]}
           formatOptions={{style: "currency", currency: "USD"}}
@@ -139,7 +141,7 @@ export default function Index() {
             setMinStockPrice(min);
             setMaxStockPrice(max);
           }}
-        />
+        />)}
 
         <Slider
           className="max-w-md"

@@ -1,4 +1,5 @@
 import { Navbar } from "../components/navbar";
+import { Footer } from "../components/footer";
 import { Alert } from "@heroui/react";
 
 export default function Tutorial() {
@@ -24,6 +25,7 @@ export default function Tutorial() {
                 <h1 className="my-4">What is the Black-Scholes Model?</h1>
                 <p>What if you could mathematically determine the best call/put price for your options? The Black-Scholes model does exactly that. It takes in five variables (stock price, strike price, risk-free interest rate, time to expiration, volatility) and returns the call price. The solution to this partial differential equation for V is the call price.</p>
             </div>
+            <Footer />
         </>
     );
 }
