@@ -33,19 +33,15 @@ export function blackScholes(stockPrice, strikePrice, timeToExpiration, interest
 
   let callValue;
   let putValue;
-  let [d1, d2] = [interestRate, interestRate]; // why isn't d1 = d2 = interestRate working :(
-  let term = Math.pow(volatility, 2) / 2;
+  let d1 = interestRate;
 
-  d1 += term;
-  d2 -= term;
+  d1 += Math.pow(volatility, 2) / 2;
   d1 *= timeToExpiration;
-  d2 *= timeToExpiration;
-  term = Math.log1p(stockPrice / strikePrice - 1);
-  d1 += term;
-  d2 += term;
-  term = volatility * Math.sqrt(timeToExpiration);
+  d1 += Math.log1p(stockPrice / strikePrice - 1);
+  let term = volatility * Math.sqrt(timeToExpiration);
   d1 /= term;
-  d2 /= term;
+  let d2 = d1 - term;
+  
 
   callValue = calculateBSTerm(d1, d2);
   putValue = calculateBSTerm(d1, d2, -1);

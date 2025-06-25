@@ -24,18 +24,13 @@ class Request(BaseModel):
 
 def black_scholes(stock_price, strike_price, interest_rate, time_to_expiration, volatility):
     call_price = 0
-    d1 = d2 = interest_rate
-    term = volatility ** 2 / 2
-    d1 += term
-    d2 -= term
+    d1 = interest_rate
+    d1 += volatility ** 2 / 2
     d1 *= time_to_expiration
-    d2 *= time_to_expiration
-    term = math.log(stock_price / strike_price)
-    d1 += term
-    d2 += term
+    d1 += math.log(stock_price / strike_price)
     term = volatility * math.sqrt(time_to_expiration)
     d1 /= term
-    d2 /= term
+    d2 = d1 - term
     call_price = stock_price * norm.cdf(d1)
     call_price -= strike_price * math.exp(-interest_rate * time_to_expiration) * norm.cdf(d2)
     return round(call_price, 2)
@@ -47,7 +42,7 @@ def black_scholes_map(min_stock_price, max_stock_price, min_volatility, max_vola
     current_z = []
     x_values = np.round(np.linspace(min_stock_price, max_stock_price, 10), 2)
     y_values = np.round(np.linspace(min_volatility, max_volatility, 10), 2)
-
+    
     for j in range(len(x_values)):
         for i in range(len(y_values)):
             current_z.append(black_scholes(x_values[i], strike_price, interest_rate, time_to_expiration, y_values[j]))
