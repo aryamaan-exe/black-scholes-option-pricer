@@ -29,6 +29,13 @@ export default function Tutorial() {
                 <Image className="my-2" width={400} src="https://assets.nivaran.net/fc8561d9ee37f8a481978237c67fc8876e6a3cbcc34188cdb6ddd4147eab4b20.png"></Image>
                 <p>σ here stands for volatility. S is the stock price, X is the strike price (also known as exercise price), r is the risk-free interest rate, T is the time to expiration. These terms d1 and d2 are then used to calculate the call price.</p>
                 <Image className="my-2" width={400} src="http://assets.nivaran.net/b595a814291b2e77854e62d5fdeee6a4ffa822a12aae919749e62ada5be946a7.png"></Image>
+                <p>The function N(x) is the cumulative distribution function. It gives the probability that a standard normal variable is less than or equal to the parameter x. If that sounds too complex, just know that probabilities are always between 0 and 1, so N(x) lies between 0 and 1.</p>
+                <p>So, why do we use the Black-Scholes model? Imagine it gives a call price of $20. But, the trading exchange you're using is offering it for $15. You're essentially getting a discount of $5, so you buy the underpriced call option.</p>
+                <h1 className="my-4">The Heatmap</h1>
+                <p>A heatmap is a two-dimensional graph showing a function's outputs in various colors. It's a pretty easy graph to read once you understand it. This site lets you tweak the minimum and maximum value of the spot price and the volatility in the heatmap.</p>
+                <Image className="my-2" width={400} src="https://assets.nivaran.net/fc7760aa7877ae6dfbaa98eddaa3790f8f87467e27f29ba294db33af028ccfe1.png"></Image>
+                <p>Every cell in the grid is the Black-Scholes value at the particular spot price on the x-axis and volatility on the y-axis, all other variables constant. Lower values are redder, higher values are bluer.</p>
+                <p>If you have the call price from your trading exchange, you can cross-check it with the heatmap to get the implied volatility (estimated volatility of the stock). Obviously, this assumes a fairly priced call option.</p>
             </div>
             <Footer />
         </>
