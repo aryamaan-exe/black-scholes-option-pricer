@@ -1,4 +1,5 @@
 import { Navbar } from "../components/navbar";
+import { Footer } from "../components/footer";
 import { Button, Image, Alert, Slider, NumberInput, Skeleton } from "@heroui/react";
 import { useEffect, useState } from "react";
 import { jStat } from "jstat";
@@ -167,6 +168,8 @@ export default function Index() {
 
         <Button isLoading={loading} color="primary" onPress={heatmapClicked}>Generate Heatmap</Button>
       </div>
+
+      <Footer />
     </>
   );
 }
