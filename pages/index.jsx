@@ -132,7 +132,7 @@ export default function Index() {
 
         {!isNaN(stockPrice) && (<Slider
           key={stockPrice}
-          className="max-w-md"
+          className="lg:max-w-md max-w-sm"
           defaultValue={[stockPrice > 20 ? stockPrice - 20 : 10, stockPrice + 20]}
           formatOptions={{style: "currency", currency: "USD"}}
           label="Stock Price"
@@ -146,7 +146,7 @@ export default function Index() {
         />)}
 
         <Slider
-          className="max-w-md"
+          className="lg:max-w-md max-w-sm"
           defaultValue={[0.1, 0.4]}
           label="Volatility"
           minValue={0.01}

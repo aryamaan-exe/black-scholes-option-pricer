@@ -1,12 +1,12 @@
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
-import { Alert } from "@heroui/react";
+import { Image, Alert } from "@heroui/react";
 
 export default function Tutorial() {
     return (
         <>
             <Navbar />
-            <div className="mx-32">
+            <div className="lg:mx-32 mx-4">
                 <Alert color="primary" className="my-8 w-fit">Coming from Hack Club? Welcome! I hope you vote for my project, and if you didn't know about the Black-Scholes model, I hope you learned something new!</Alert>
                 <h1>What are Options?</h1>
                 <div className="*:mb-2">
@@ -24,6 +24,11 @@ export default function Tutorial() {
                 </div>
                 <h1 className="my-4">What is the Black-Scholes Model?</h1>
                 <p>What if you could mathematically determine the best call/put price for your options? The Black-Scholes model does exactly that. It takes in five variables (stock price, strike price, risk-free interest rate, time to expiration, volatility) and returns the call price. The solution to this partial differential equation for V is the call price.</p>
+                <Image className="my-2" width={400} src="http://assets.nivaran.net/c1d03e0ecb966f6d8201f1b08b0ecfdbf6cf1908e0b1c4d8d3ad13551d207b33.png"></Image>
+                <p>Looks difficult, doesn't it? Here's a simplified version that's easy to code with math libary functions and operators.</p>
+                <Image className="my-2" width={400} src="https://assets.nivaran.net/fc8561d9ee37f8a481978237c67fc8876e6a3cbcc34188cdb6ddd4147eab4b20.png"></Image>
+                <p>σ here stands for volatility. S is the stock price, X is the strike price (also known as exercise price), r is the risk-free interest rate, T is the time to expiration. These terms d1 and d2 are then used to calculate the call price.</p>
+                <Image className="my-2" width={400} src="http://assets.nivaran.net/b595a814291b2e77854e62d5fdeee6a4ffa822a12aae919749e62ada5be946a7.png"></Image>
             </div>
             <Footer />
         </>
