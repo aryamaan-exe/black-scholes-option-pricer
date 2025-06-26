@@ -1,55 +1,11 @@
-# Next.js & HeroUI Template
+# Black-Scholes Option Pricer
 
-This is a template for creating applications using Next.js 14 (pages directory) and HeroUI (v2).
+This is a project I made to understand more about the Black-Scholes model. It's a calculator that lets you enter 5 input variables and gives you the appropriate call and put price. It also lets you generate a heatmap of the call price with varying stock prices and volatilities. This lets you estimate the implied volatility.
 
-[Try it on CodeSandbox](https://githubbox.com/heroui-inc/next-pages-template)
+## Tutorial
 
-> Note: Since Next.js 14, the pages router is recommend migrating to the [new App Router](https://nextjs.org/docs/app) to leverage React's latest features
->
-> Read more: [Pages Router](https://nextjs.org/docs/pages)
+The project comes with a tutorial section explaining options, the Black-Scholes model, and the project itself. As for running the code locally, you'll be using Next.js and HeroUI, plus Python for the backend. This also uses ImageKit for the heatmaps, [see how to get an ImageKit API key here](https://imagekit.io/docs/overview).
 
-## Technologies Used
+## History
 
-- [Next.js 14](https://nextjs.org/docs/getting-started)
-- [HeroUI](https://heroui.com)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org)
-- [Framer Motion](https://www.framer.com/motion)
-- [next-themes](https://github.com/pacocoursey/next-themes)
-
-## How to Use
-
-To create a new project based on this template using `create-next-app`, run the following command:
-
-```bash
-npx create-next-app -e https://github.com/heroui-inc/next-pages-template
-```
-
-### Install dependencies
-
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
-
-```bash
-npm install
-```
-
-### Run the development server
-
-```bash
-npm run dev
-```
-
-### Setup pnpm (optional)
-
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
-
-```bash
-public-hoist-pattern[]=*@heroui/*
-```
-
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
-
-## License
-
-Licensed under the [MIT license](https://github.com/heroui-inc/next-pages-template/blob/main/LICENSE).
+I wanted to make a project about the Black-Scholes model for a while, understanding how it works in theory and how to code it. I started working on it during Hack Club Summer of Making.

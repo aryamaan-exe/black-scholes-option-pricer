@@ -1,6 +1,6 @@
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
-import { Button, Image, Alert, Slider, NumberInput, Skeleton } from "@heroui/react";
+import { Tooltip, Button, Image, Alert, Slider, NumberInput, Skeleton } from "@heroui/react";
 import { useEffect, useState } from "react";
 import { jStat } from "jstat";
 
@@ -19,7 +19,6 @@ async function generateHeatmap(minStockPrice, maxStockPrice, minVolatility, maxV
   });
 
   const json = await response.json()
-  console.log(json.url);
   
   return json.url;
 }
@@ -48,6 +47,14 @@ export function blackScholes(stockPrice, strikePrice, timeToExpiration, interest
   
   
   return [callValue.toFixed(2), putValue.toFixed(2)];
+}
+
+export function HelpIcon({ content }) {
+  return <Tooltip content={content} closeDelay={0}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="gray" className="size-6 -ml-8 -mt-1">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
+            </svg>
+          </Tooltip>;
 }
 
 export default function Index() {
@@ -87,29 +94,49 @@ export default function Index() {
         <Alert color="primary" className="my-8 w-fit">Coming from Hack Club? Check out the tutorial section from the navbar above to learn more about this project.</Alert>
         <h1>Input Variables</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          <NumberInput className="" label="Stock Price" defaultValue={100} startContent={
-            <div className="pointer-events-none flex items-center">
-              <span className="text-default-400 text-small">$</span>
-            </div>
-          } onChange={(value) => {
-            setStockPrice(value);
-          }}></NumberInput>
-          <NumberInput label="Strike Price" defaultValue={100} startContent={
-            <div className="pointer-events-none flex items-center">
-              <span className="text-default-400 text-small">$</span>
-            </div>
-          } onChange={(value) => {
-            setStrikePrice(value);
-          }}></NumberInput>
-          <NumberInput label="Time to Expiration" defaultValue={1} onChange={(value) => {
-            setTimeToExpiration(value);
-          }}></NumberInput>
-          <NumberInput label="Risk-free Interest Rate" defaultValue={0.05} onChange={(value) => {
-            setInterestRate(value);
-          }}></NumberInput>
-          <NumberInput label="Volatility" defaultValue={0.2} onChange={(value) => {
-            setVolatility(value);
-          }}></NumberInput>
+          <div className="flex">
+            <NumberInput className="mr-2" label="Stock Price" labelPlacement="outside" defaultValue={100} startContent={
+              <div className="pointer-events-none flex items-center">
+                <span className="text-default-400 text-small">$</span>
+              </div>
+            } onChange={(value) => {
+              setStockPrice(value);
+            }}></NumberInput>
+            
+            <HelpIcon content={"Current price of the stock"} />
+          </div>
+          <div className="flex">
+            <NumberInput label="Strike Price" labelPlacement="outside" defaultValue={100} startContent={
+              <div className="pointer-events-none flex items-center">
+                <span className="text-default-400 text-small">$</span>
+              </div>
+            } onChange={(value) => {
+              setStrikePrice(value);
+            }}></NumberInput>
+
+            <HelpIcon content={"Price you want to be able to buy the stock at"} />
+          </div>
+          <div className="flex">
+            <NumberInput label="Time to Expiration" labelPlacement="outside" defaultValue={1} onChange={(value) => {
+              setTimeToExpiration(value);
+            }}></NumberInput>
+
+            <HelpIcon content={"How long before the option expires (in years)"} />
+          </div>
+          <div className="flex">
+            <NumberInput label="Risk-free Interest Rate" labelPlacement="outside" defaultValue={0.05} onChange={(value) => {
+              setInterestRate(value);
+            }}></NumberInput>
+
+            <HelpIcon content={"Interest rate (in decimals) with no risk"} />
+          </div>
+          <div className="flex">
+            <NumberInput label="Volatility" labelPlacement="outside" defaultValue={0.2} onChange={(value) => {
+              setVolatility(value);
+            }}></NumberInput>
+
+            <HelpIcon content={"Estimate of how much the stock moves (in decimals)"} />
+          </div>
         </div>
         <div className="mt-2 flex *:p-2">
           <div>

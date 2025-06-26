@@ -93,7 +93,7 @@ async def heatmap(params: Request):
     imagekit = ImageKit(
         public_key=os.getenv("IMGPUB"),
         private_key=os.getenv("IMGPRIV"),
-        url_endpoint="https://ik.imagekit.io/nivarana/"
+        url_endpoint=os.getenv("IMGEND")
     )
     
     url = imagekit.upload(
