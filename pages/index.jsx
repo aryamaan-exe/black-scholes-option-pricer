@@ -153,7 +153,7 @@ export default function Index() {
           </div>
         </div>
         
-        {isNaN(callValue) ? <Alert color="danger" className="my-8 w-fit">Getting NaN? Click away from the input box.</Alert> : ""}
+        {isNaN(callValue) && <Alert color="danger" className="my-8 w-fit">Getting NaN? Click away from the input box.</Alert>}
         
         <h1 className="my-8">Heatmap</h1>
 
